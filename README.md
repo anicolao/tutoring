@@ -26,6 +26,7 @@ By "seeing" the shared workspace—like a whiteboard used for math problems—an
 ## Documentation
 
 - [Vision Statement](VISION.md) - A deeper look at the core philosophy and product workflow behind the AI Tutoring Companion.
+- [Proof of Concept (PoC)](POC.md) - The minimal implementation plan to validate the core assumptions of the AI Tutoring Companion.
 
 ## Roadmap & Next Steps
 - [ ] Research multimodal models capable of processing both real-time canvas/video inputs and speech transcripts.
