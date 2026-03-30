@@ -6,16 +6,16 @@ Welcome to the AI Tutoring Companion repository. This project aims to reimagine 
 
 ## Overview
 
-The AI Tutoring Companion platform operates on a simple but powerful premise: **an AI agent passive-listens during a live tutoring session to precisely identify a student's knowledge gaps.** 
+The AI Tutoring Companion platform operates on a simple but powerful premise: **an AI agent processes both the audio and video stream of a live tutoring session to precisely identify a student's knowledge gaps.** 
 
-Rather than burdening the tutor with extensive diagnostic parsing and generic homework assignment, the AI identifies precisely where the student needs reinforcement based on their real-time discussions, questions, and struggles in the session.
+By "seeing" the shared workspace—like a whiteboard used for math problems—and listening to the conversation, it captures the full context of the lesson. Rather than burdening the tutor with extensive diagnostic parsing and generic homework assignment, the AI identifies precisely where the student needs reinforcement based on both their real-time discussions and their on-screen work.
 
 ## Core Flow
 
-1. **Session Listening:** The AI analyzes audio/transcripts from live tutoring sessions to capture the student's and tutor's interactions.
-2. **Gap Analysis:** By identifying moments of hesitation, incorrect answers, or repeated explanations, it maps out the student's exact "knowledge gaps."
-3. **Targeted Assignments:** Post-session, the AI collaborates with both the tutor (for approval/direction) and the student to assign specific exercises designed strictly to close those identified gaps.
-4. **Progress Verification:** The AI acts as an always-on tutor proxy outside of session hours. It evaluates the student's offline work to determine whether the gaps have been successfully closed and reports back to the tutor.
+1. **Session Observation:** The AI analyzes both the audio and the visual workspace (e.g., evaluating what the student is writing on a shared whiteboard) from live tutoring sessions to capture the full context of instruction.
+2. **Gap Analysis:** By correlating moments of hesitation, incorrect answers, or repeated explanations with the student's visual work, it maps out exact "knowledge gaps."
+3. **Interactive Problem Sets:** Post-session, the AI collaborates with the tutor to assign specific exercises. The student completes these assignments by carrying out an interactive back-and-forth session directly with the AI, which provides real-time help.
+4. **Progress Verification:** Because the homework is an interactive AI dialogue, the system continuously evaluates the student's understanding to determine whether the gaps have been successfully closed and reports back to the tutor.
 
 ## Project Goals
 
@@ -28,9 +28,9 @@ Rather than burdening the tutor with extensive diagnostic parsing and generic ho
 - [Vision Statement](VISION.md) - A deeper look at the core philosophy and product workflow behind the AI Tutoring Companion.
 
 ## Roadmap & Next Steps
-- [ ] Research Speech-to-Text and NLP models for real-time conversational analysis.
-- [ ] Outline the AI intervention and feedback loop UI for students.
-- [ ] Prototype the Tutor Dashboard (Gap Analysis view) and Student independent study UI.
+- [ ] Research multimodal models capable of processing both real-time canvas/video inputs and speech transcripts.
+- [ ] Outline the interactive, conversational UI for the student's AI-guided problem sets.
+- [ ] Prototype the Tutor Dashboard (Gap Analysis view) and the interactive AI session interface.
 - [ ] Implement foundational database schemas for tracking "Gap Mapping" metrics over time.
 
 ---
