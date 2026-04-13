@@ -13,6 +13,9 @@ export interface TutorDashboardAnalysis {
 	summary: string;
 }
 
+export const DEFAULT_PROMPT =
+	'Identify the student’s knowledge gaps from this session and propose one interactive follow-up problem that targets those gaps.';
+
 const GEMINI_MODEL = 'gemini-3.0-pro-preview';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
@@ -63,7 +66,7 @@ function fallbackAnalysis({
 				],
 		proposedProblem: `Create one follow-up problem based on this tutor direction: ${prompt}`,
 		summary:
-			'Fallback analysis is being shown because a Gemini API key is not configured. Add GEMINI_API_KEY or GOOGLE_API_KEY to enable live Gemini analysis.'
+			'Fallback analysis is being shown because no Gemini API key was provided. Add a Gemini API key in the dashboard to enable live analysis in the preview.'
 	};
 }
 
