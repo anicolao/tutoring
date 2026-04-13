@@ -121,10 +121,11 @@ export async function analyzeTutorSession(
 		return fallbackAnalysis(request);
 	}
 
-	const response = await fetch(`${GEMINI_ENDPOINT}?key=${apiKey}`, {
+	const response = await fetch(GEMINI_ENDPOINT, {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'x-goog-api-key': apiKey
 		},
 		body: JSON.stringify({
 			generationConfig: {
