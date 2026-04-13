@@ -7,9 +7,7 @@ Student: I think it becomes -2x minus 3.
 Tutor: What happens to the negative sign when it distributes?
 Student: I keep forgetting whether it changes both terms.`;
 
-test('Tutor dashboard generates an analysis and opens the student workspace', async ({
-	page
-}, testInfo) => {
+test('Tutor dashboard analysis flow', async ({ page }, testInfo) => {
 	const tester = new TestStepHelper(page, testInfo);
 	tester.setMetadata(
 		'Tutor Dashboard Analysis Flow',
