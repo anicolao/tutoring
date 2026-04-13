@@ -34,7 +34,7 @@ test('Tutor dashboard analysis flow', async ({ page }, testInfo) => {
 		]
 	});
 
-	await page.getByLabel('Session image').setInputFiles({
+	await page.locator('#sessionImage').setInputFiles({
 		name: 'whiteboard.png',
 		mimeType: 'image/png',
 		buffer: Buffer.from(
