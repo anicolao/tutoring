@@ -16,7 +16,7 @@ export interface TutorDashboardAnalysis {
 export const DEFAULT_PROMPT =
 	'Identify the student’s knowledge gaps from this session and propose one interactive follow-up problem that targets those gaps.';
 
-const GEMINI_MODEL = 'gemini-3.0-pro-preview';
+const GEMINI_MODEL = 'gemini-3.1-pro-preview';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 function buildAnalysisPrompt({

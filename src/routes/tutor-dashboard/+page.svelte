@@ -100,8 +100,8 @@
 			</div>
 
 			<p class="max-w-2xl text-base leading-7 text-slate-300">
-				Upload the final whiteboard image, paste the transcript, and send both to Gemini Pro Preview
-				v3.0 with a tutor-authored prompt.
+				Upload the final whiteboard image, paste the transcript, and send both to Gemini 3.1 Pro
+				Preview with a tutor-authored prompt.
 			</p>
 
 			<div class="mt-8 space-y-6">
