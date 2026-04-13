@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 
 	import type { ActionData, PageData } from './$types';
@@ -159,16 +158,15 @@
 						<p class="mt-3 text-sm leading-7 text-slate-100">{form.analysis.summary}</p>
 					</div>
 
-					<button
-						class="inline-flex items-center rounded-full border border-cyan-300/40 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200 hover:bg-cyan-400/10"
-						type="button"
-						onclick={() =>
-							goto(
-								`${resolve('/student-workspace')}?problem=${encodeURIComponent(form.analysis.proposedProblem)}`
-							)}
-					>
-						Open student workspace
-					</button>
+					<form method="GET" action={resolve('/student-workspace')}>
+						<input name="problem" type="hidden" value={form.analysis.proposedProblem} />
+						<button
+							class="inline-flex items-center rounded-full border border-cyan-300/40 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200 hover:bg-cyan-400/10"
+							type="submit"
+						>
+							Open student workspace
+						</button>
+					</form>
 				</div>
 			{:else}
 				<div

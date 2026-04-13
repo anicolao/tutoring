@@ -18,7 +18,7 @@ Validates the tutor dashboard submission flow and the student workspace handoff.
 - [x] Knowledge gaps section is visible
 - [x] Fallback badge is visible for test mode
 - [x] Analysis contains the negative sign insight
-- [x] Student workspace link is available
+- [x] Student workspace button is available
 
 ## Student workspace handoff
 
