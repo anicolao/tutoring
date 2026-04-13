@@ -20,12 +20,12 @@ test('Homepage renders correctly', async ({ page }, testInfo) => {
 			{
 				spec: 'Tutor Dashboard button is visible',
 				check: async () =>
-					await expect(page.locator('button', { hasText: 'Tutor Dashboard' })).toBeVisible()
+					await expect(page.locator('a', { hasText: 'Tutor Dashboard' })).toBeVisible()
 			},
 			{
 				spec: 'Student Workspace button is visible',
 				check: async () =>
-					await expect(page.locator('button', { hasText: 'Student Workspace' })).toBeVisible()
+					await expect(page.locator('a', { hasText: 'Student Workspace' })).toBeVisible()
 			}
 		]
 	});
