@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { resolve } from '$app/paths';
 	import { analyzeTutorSession, DEFAULT_PROMPT } from '$lib/tutor-dashboard';
 
@@ -11,7 +12,12 @@
 	let apiKey = $state('');
 	let analysis = $state<TutorDashboardAnalysis | null>(null);
 	let error = $state('');
+	let hydrated = $state(false);
 	let isSubmitting = $state(false);
+
+	onMount(() => {
+		hydrated = true;
+	});
 
 	function handleImageChange(event: Event) {
 		const input = event.currentTarget as HTMLInputElement;
@@ -31,9 +37,7 @@
 		return btoa(binary);
 	}
 
-	async function handleSubmit(event: SubmitEvent) {
-		event.preventDefault();
-
+	async function handleSubmit() {
 		if (!imageFile) {
 			error = 'Please upload a session image before generating an analysis.';
 			return;
@@ -97,7 +101,7 @@
 				v3.0 with a tutor-authored prompt.
 			</p>
 
-			<form class="mt-8 space-y-6" onsubmit={handleSubmit}>
+			<div class="mt-8 space-y-6">
 				<div class="rounded-2xl border border-dashed border-white/15 bg-slate-950/70 p-6">
 					<label class="block text-sm font-semibold text-slate-100" for="sessionImage">
 						Session image
@@ -174,12 +178,13 @@
 
 				<button
 					class="inline-flex items-center rounded-full bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:bg-slate-500"
-					type="submit"
-					disabled={isSubmitting}
+					type="button"
+					onclick={handleSubmit}
+					disabled={!hydrated || isSubmitting}
 				>
 					{isSubmitting ? 'Generating analysis…' : 'Generate Gemini analysis'}
 				</button>
-			</form>
+			</div>
 		</section>
 
 		<section class="rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-2xl">
