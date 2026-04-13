@@ -25,7 +25,7 @@ export default defineConfig({
 		}
 	],
 	webServer: {
-		command: 'npm run dev',
+		command: 'npm run dev -- --host 127.0.0.1',
 		url: 'http://127.0.0.1:5173',
 		reuseExistingServer: !process.env.CI,
 		/*
@@ -35,6 +35,6 @@ export default defineConfig({
 		 * reliable test execution without violating the core 2000ms rule
 		 * for application/test logic.
 		 */
-		timeout: process.env.CI ? 10000 : 2000
+		timeout: process.env.CI ? 20000 : 10000
 	}
 });

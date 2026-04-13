@@ -45,9 +45,9 @@ test('Tutor dashboard generates an analysis and opens the student workspace', as
 		)
 	});
 	await page.getByLabel('Transcript').fill(transcript);
-	await page.getByLabel('Tutor prompt').fill(
-		'Identify the algebra misconception and propose one short follow-up practice problem.'
-	);
+	await page
+		.getByLabel('Tutor prompt')
+		.fill('Identify the algebra misconception and propose one short follow-up practice problem.');
 	await page.getByRole('button', { name: 'Generate Gemini analysis' }).click();
 
 	await tester.step('analysis-results', {
@@ -67,14 +67,14 @@ test('Tutor dashboard generates an analysis and opens the student workspace', as
 					await expect(page.getByText('negative signs distribute across parentheses')).toBeVisible()
 			},
 			{
-				spec: 'Student workspace link is available',
+				spec: 'Student workspace button is available',
 				check: async () =>
-					await expect(page.getByRole('link', { name: 'Open student workspace' })).toBeVisible()
+					await expect(page.getByRole('button', { name: 'Open student workspace' })).toBeVisible()
 			}
 		]
 	});
 
-	await page.getByRole('link', { name: 'Open student workspace' }).click();
+	await page.getByRole('button', { name: 'Open student workspace' }).click();
 
 	await tester.step('student-workspace', {
 		description: 'Student workspace handoff',
@@ -82,7 +82,9 @@ test('Tutor dashboard generates an analysis and opens the student workspace', as
 			{
 				spec: 'Student workspace heading is visible',
 				check: async () =>
-					await expect(page.getByRole('heading', { name: 'Interactive follow-up problem' })).toBeVisible()
+					await expect(
+						page.getByRole('heading', { name: 'Interactive follow-up problem' })
+					).toBeVisible()
 			},
 			{
 				spec: 'Assigned problem card is populated',

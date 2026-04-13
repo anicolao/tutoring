@@ -1,15 +1,11 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
+	import { resolve } from '$app/paths';
 
 	import type { ActionData, PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
-
-	const analysis = form?.analysis ?? null;
-	const error = form?.error ?? null;
-	const transcriptValue = form?.transcript ?? '';
-	const promptValue = form?.prompt ?? data.defaultPrompt;
-	const imageName = form?.imageName ?? '';
 	let isSubmitting = $state(false);
 </script>
 
@@ -18,22 +14,24 @@
 		<section class="rounded-3xl border border-white/10 bg-slate-900/80 p-8 shadow-2xl">
 			<div class="mb-8 flex items-center justify-between gap-4">
 				<div>
-					<p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">
+					<p class="text-sm font-semibold tracking-[0.2em] text-cyan-300 uppercase">
 						Tutor dashboard
 					</p>
-					<h1 class="mt-2 text-4xl font-bold tracking-tight">Analyze a completed tutoring session</h1>
+					<h1 class="mt-2 text-4xl font-bold tracking-tight">
+						Analyze a completed tutoring session
+					</h1>
 				</div>
 				<a
 					class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-cyan-300 hover:text-cyan-200"
-					href="/"
+					href={resolve('/')}
 				>
 					Back home
 				</a>
 			</div>
 
 			<p class="max-w-2xl text-base leading-7 text-slate-300">
-				Upload the final whiteboard image, paste the transcript, and send both to Gemini Pro
-				Preview v3.0 with a tutor-authored prompt.
+				Upload the final whiteboard image, paste the transcript, and send both to Gemini Pro Preview
+				v3.0 with a tutor-authored prompt.
 			</p>
 
 			<form
@@ -64,35 +62,40 @@
 						accept="image/*"
 						required
 					/>
-					{#if imageName}
-						<p class="mt-3 text-sm text-cyan-300">Last analyzed image: {imageName}</p>
+					{#if form?.imageName}
+						<p class="mt-3 text-sm text-cyan-300">Last analyzed image: {form.imageName}</p>
 					{/if}
 				</div>
 
 				<div>
-					<label class="block text-sm font-semibold text-slate-100" for="transcript">Transcript</label>
+					<label class="block text-sm font-semibold text-slate-100" for="transcript"
+						>Transcript</label
+					>
 					<textarea
-						class="mt-3 min-h-48 w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 outline-none ring-0 transition focus:border-cyan-300"
+						class="mt-3 min-h-48 w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 ring-0 transition outline-none focus:border-cyan-300"
 						id="transcript"
 						name="transcript"
 						placeholder="Paste the tutoring conversation here..."
-						required
-					>{transcriptValue}</textarea>
+						required>{form?.transcript ?? ''}</textarea
+					>
 				</div>
 
 				<div>
-					<label class="block text-sm font-semibold text-slate-100" for="prompt">Tutor prompt</label>
+					<label class="block text-sm font-semibold text-slate-100" for="prompt">Tutor prompt</label
+					>
 					<textarea
-						class="mt-3 min-h-32 w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 outline-none ring-0 transition focus:border-cyan-300"
+						class="mt-3 min-h-32 w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 ring-0 transition outline-none focus:border-cyan-300"
 						id="prompt"
 						name="prompt"
-						required
-					>{promptValue}</textarea>
+						required>{form?.prompt ?? data.defaultPrompt}</textarea
+					>
 				</div>
 
-				{#if error}
-					<p class="rounded-2xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200">
-						{error}
+				{#if form?.error}
+					<p
+						class="rounded-2xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-200"
+					>
+						{form.error}
 					</p>
 				{/if}
 
@@ -109,34 +112,37 @@
 		<section class="rounded-3xl border border-white/10 bg-slate-900/70 p-8 shadow-2xl">
 			<div class="flex items-center justify-between gap-4">
 				<div>
-					<p class="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-300">
+					<p class="text-sm font-semibold tracking-[0.2em] text-emerald-300 uppercase">
 						Analysis output
 					</p>
 					<h2 class="mt-2 text-3xl font-bold tracking-tight">Session diagnosis</h2>
 				</div>
-				{#if analysis}
+				{#if form?.analysis}
 					<span
-						class="rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] {analysis.provider === 'gemini'
+						class="rounded-full border px-3 py-1 text-xs font-semibold tracking-[0.2em] uppercase {form
+							.analysis.provider === 'gemini'
 							? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-200'
 							: 'border-amber-400/30 bg-amber-400/10 text-amber-200'}"
 					>
-						{analysis.provider === 'gemini' ? 'Gemini live' : 'Demo fallback'}
+						{form.analysis.provider === 'gemini' ? 'Gemini live' : 'Demo fallback'}
 					</span>
 				{/if}
 			</div>
 
-			{#if analysis}
+			{#if form?.analysis}
 				<div class="mt-8 space-y-6">
 					<div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
 						<p class="text-sm font-semibold text-slate-300">Model</p>
-						<p class="mt-2 text-base text-white">{analysis.model}</p>
+						<p class="mt-2 text-base text-white">{form.analysis.model}</p>
 					</div>
 
 					<div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
 						<p class="text-sm font-semibold text-slate-300">Knowledge gaps</p>
 						<ul class="mt-3 space-y-3">
-							{#each analysis.knowledgeGaps as gap}
-								<li class="rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-sm text-slate-100">
+							{#each form.analysis.knowledgeGaps as gap (gap)}
+								<li
+									class="rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-sm text-slate-100"
+								>
 									{gap}
 								</li>
 							{/each}
@@ -145,23 +151,29 @@
 
 					<div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
 						<p class="text-sm font-semibold text-slate-300">Proposed interactive problem</p>
-						<p class="mt-3 text-sm leading-7 text-slate-100">{analysis.proposedProblem}</p>
+						<p class="mt-3 text-sm leading-7 text-slate-100">{form.analysis.proposedProblem}</p>
 					</div>
 
 					<div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
 						<p class="text-sm font-semibold text-slate-300">Why this assignment fits</p>
-						<p class="mt-3 text-sm leading-7 text-slate-100">{analysis.summary}</p>
+						<p class="mt-3 text-sm leading-7 text-slate-100">{form.analysis.summary}</p>
 					</div>
 
-					<a
+					<button
 						class="inline-flex items-center rounded-full border border-cyan-300/40 px-5 py-3 text-sm font-semibold text-cyan-100 transition hover:border-cyan-200 hover:bg-cyan-400/10"
-						href={`/student-workspace?problem=${encodeURIComponent(analysis.proposedProblem)}`}
+						type="button"
+						onclick={() =>
+							goto(
+								`${resolve('/student-workspace')}?problem=${encodeURIComponent(form.analysis.proposedProblem)}`
+							)}
 					>
 						Open student workspace
-					</a>
+					</button>
 				</div>
 			{:else}
-				<div class="mt-8 rounded-3xl border border-dashed border-white/10 bg-slate-950/40 p-8 text-sm leading-7 text-slate-400">
+				<div
+					class="mt-8 rounded-3xl border border-dashed border-white/10 bg-slate-950/40 p-8 text-sm leading-7 text-slate-400"
+				>
 					Your Gemini analysis will appear here after you submit the form.
 				</div>
 			{/if}
