@@ -54,15 +54,18 @@
 		isSubmitting = true;
 
 		try {
-			analysis = await analyzeTutorSession(
-				{
-					imageBase64: normalizedApiKey ? await toBase64(imageFile) : '',
-					imageMimeType: imageFile.type || 'image/png',
-					transcript: transcript.trim(),
-					prompt: normalizedPrompt
-				},
-				normalizedApiKey || undefined
-			);
+			const request = {
+				imageBase64: '',
+				imageMimeType: imageFile.type || 'image/png',
+				transcript: transcript.trim(),
+				prompt: normalizedPrompt
+			};
+
+			if (normalizedApiKey) {
+				request.imageBase64 = await toBase64(imageFile);
+			}
+
+			analysis = await analyzeTutorSession(request, normalizedApiKey || undefined);
 			prompt = normalizedPrompt;
 		} catch (submissionError) {
 			analysis = null;
