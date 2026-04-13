@@ -46,7 +46,6 @@ jobs:
           COMMIT_HASH: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Copy index.html to 404.html for GitHub Pages SPA routing
-        if: github.event_name != 'pull_request'
         run: cp build/index.html build/404.html
 
       - name: Deploy to gh-pages branch
