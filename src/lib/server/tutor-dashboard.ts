@@ -16,7 +16,10 @@ export interface TutorDashboardAnalysis {
 const GEMINI_MODEL = 'gemini-3.0-pro-preview';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
-function buildAnalysisPrompt({ transcript, prompt }: Pick<TutorDashboardRequest, 'transcript' | 'prompt'>) {
+function buildAnalysisPrompt({
+	transcript,
+	prompt
+}: Pick<TutorDashboardRequest, 'transcript' | 'prompt'>) {
 	return [
 		'You are an expert tutoring diagnostician.',
 		'Analyze the uploaded tutoring-session whiteboard image together with the transcript and tutor prompt.',

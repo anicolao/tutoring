@@ -29,8 +29,7 @@ export const actions = {
 			});
 		}
 
-		const normalizedPrompt =
-			typeof prompt === 'string' && prompt.trim() ? prompt : DEFAULT_PROMPT;
+		const normalizedPrompt = typeof prompt === 'string' && prompt.trim() ? prompt : DEFAULT_PROMPT;
 		const buffer = Buffer.from(await image.arrayBuffer());
 
 		try {
