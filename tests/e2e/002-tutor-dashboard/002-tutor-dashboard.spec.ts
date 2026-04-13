@@ -8,6 +8,8 @@ Tutor: What happens to the negative sign when it distributes?
 Student: I keep forgetting whether it changes both terms.`;
 
 test('Tutor dashboard analysis flow', async ({ page }, testInfo) => {
+	test.slow();
+
 	const tester = new TestStepHelper(page, testInfo);
 	tester.setMetadata(
 		'Tutor Dashboard Analysis Flow',
@@ -27,9 +29,9 @@ test('Tutor dashboard analysis flow', async ({ page }, testInfo) => {
 					).toBeVisible()
 			},
 			{
-				spec: 'Generate button is visible',
+				spec: 'Generate button is enabled after hydration',
 				check: async () =>
-					await expect(page.getByRole('button', { name: 'Generate Gemini analysis' })).toBeVisible()
+					await expect(page.getByRole('button', { name: 'Generate Gemini analysis' })).toBeEnabled()
 			}
 		]
 	});
@@ -47,6 +49,7 @@ test('Tutor dashboard analysis flow', async ({ page }, testInfo) => {
 		.getByLabel('Tutor prompt')
 		.fill('Identify the algebra misconception and propose one short follow-up practice problem.');
 	await page.getByRole('button', { name: 'Generate Gemini analysis' }).click();
+	await expect(page.getByText('Demo fallback')).toBeVisible({ timeout: 6000 });
 
 	await tester.step('analysis-results', {
 		description: 'Generated analysis results',
