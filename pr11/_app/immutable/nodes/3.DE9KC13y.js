@@ -1,0 +1,1 @@
+import{a as p,f as e}from"../chunks/A24Fem-V.js";import{p as m,t as s,a as f}from"../chunks/D7e3nDaz.js";import{s as i}from"../chunks/Bbi4J-kA.js";import{r as h}from"../chunks/c5zJt7Qn.js";var l=e("<a>playwright</a>");function g(r,t){m(t,!0);var a=l();s(o=>i(a,"href",o),[()=>h("/demo/playwright")]),p(r,a),f()}export{g as component};
