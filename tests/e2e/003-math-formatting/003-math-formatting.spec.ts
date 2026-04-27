@@ -24,6 +24,11 @@ test('Math formatting verification', async ({ page }, testInfo) => {
 					await expect(
 						page.getByRole('heading', { name: 'Analyze a completed tutoring session' })
 					).toBeVisible()
+			},
+			{
+				spec: 'Generate button is enabled after hydration',
+				check: async () =>
+					await expect(page.getByRole('button', { name: 'Generate Gemini analysis' })).toBeEnabled()
 			}
 		]
 	});
@@ -69,6 +74,13 @@ test('Math formatting verification', async ({ page }, testInfo) => {
 	await tester.step('math-in-workspace', {
 		description: 'Math rendering in student workspace',
 		verifications: [
+			{
+				spec: 'Student workspace heading is visible',
+				check: async () =>
+					await expect(
+						page.getByRole('heading', { name: 'Interactive follow-up problem' })
+					).toBeVisible()
+			},
 			{
 				spec: 'KaTeX elements are present in student workspace',
 				check: async () => {
