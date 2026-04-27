@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import MathText from '$lib/components/MathText.svelte';
 
 	import type { PageData } from './$types';
 
@@ -27,7 +28,11 @@
 			<section class="rounded-3xl border border-white/10 bg-slate-950/70 p-6">
 				<p class="text-sm font-semibold text-slate-300">Assigned problem</p>
 				<p class="mt-4 text-lg leading-8 text-slate-100">
-					{data.problem || 'The tutor has not assigned a follow-up problem yet.'}
+					{#if data.problem}
+						<MathText text={data.problem} />
+					{:else}
+						The tutor has not assigned a follow-up problem yet.
+					{/if}
 				</p>
 			</section>
 
