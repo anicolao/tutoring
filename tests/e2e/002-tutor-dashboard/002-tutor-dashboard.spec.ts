@@ -49,7 +49,7 @@ test('Tutor dashboard analysis flow', async ({ page }, testInfo) => {
 		.getByLabel('Tutor prompt')
 		.fill('Identify the algebra misconception and propose one short follow-up practice problem.');
 	await page.getByRole('button', { name: 'Generate Gemini analysis' }).click();
-	await expect(page.getByText('Demo fallback')).toBeVisible({ timeout: 6000 });
+	await expect(page.getByText('Demo fallback', { exact: true })).toBeVisible({ timeout: 6000 });
 
 	await tester.step('analysis-results', {
 		description: 'Generated analysis results',
@@ -60,7 +60,8 @@ test('Tutor dashboard analysis flow', async ({ page }, testInfo) => {
 			},
 			{
 				spec: 'Fallback badge is visible for test mode',
-				check: async () => await expect(page.getByText('Demo fallback')).toBeVisible()
+				check: async () =>
+					await expect(page.getByText('Demo fallback', { exact: true })).toBeVisible()
 			},
 			{
 				spec: 'Analysis contains the negative sign insight',

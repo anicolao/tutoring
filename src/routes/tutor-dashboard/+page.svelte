@@ -10,7 +10,6 @@
 	let imageName = $state('');
 	let transcript = $state('');
 	let prompt = $state(DEFAULT_PROMPT);
-	let apiKey = $state('');
 	let analysis = $state<TutorDashboardAnalysis | null>(null);
 	let error = $state('');
 	let hydrated = $state(false);
@@ -50,23 +49,18 @@
 		}
 
 		const normalizedPrompt = prompt.trim() || DEFAULT_PROMPT;
-		const normalizedApiKey = apiKey.trim();
 		error = '';
 		isSubmitting = true;
 
 		try {
 			const request = {
-				imageBase64: '',
+				imageBase64: await toBase64(imageFile),
 				imageMimeType: imageFile.type || 'image/png',
 				transcript: transcript.trim(),
 				prompt: normalizedPrompt
 			};
 
-			if (normalizedApiKey) {
-				request.imageBase64 = await toBase64(imageFile);
-			}
-
-			analysis = await analyzeTutorSession(request, normalizedApiKey || undefined);
+			analysis = await analyzeTutorSession(request, undefined);
 			prompt = normalizedPrompt;
 		} catch (submissionError) {
 			analysis = null;
@@ -151,25 +145,6 @@
 						bind:value={prompt}
 						required
 					></textarea>
-				</div>
-
-				<div>
-					<label class="block text-sm font-semibold text-slate-100" for="apiKey">
-						Gemini API key <span class="text-slate-400">(optional)</span>
-					</label>
-					<input
-						class="mt-3 block w-full rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm text-slate-100 transition outline-none focus:border-cyan-300"
-						id="apiKey"
-						name="apiKey"
-						type="password"
-						bind:value={apiKey}
-						placeholder="Paste a Gemini API key to run live analysis in the preview"
-						autocomplete="off"
-					/>
-					<p class="mt-2 text-sm text-slate-400">
-						The GitHub Pages preview is static, so live Gemini calls run directly from your browser
-						only when you provide a key for this session.
-					</p>
 				</div>
 
 				{#if error}
