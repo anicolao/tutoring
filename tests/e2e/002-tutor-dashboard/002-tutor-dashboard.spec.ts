@@ -89,8 +89,7 @@ test('Tutor dashboard analysis flow', async ({ page }, testInfo) => {
 			},
 			{
 				spec: 'Assigned problem card is populated',
-				check: async () =>
-					await expect(page.getByText('Identify the algebra misconception')).toBeVisible()
+				check: async () => await expect(page.getByText('Solve for')).toBeVisible()
 			}
 		]
 	});

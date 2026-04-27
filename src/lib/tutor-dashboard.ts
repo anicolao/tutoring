@@ -31,6 +31,7 @@ function buildAnalysisPrompt({
 		'proposedProblem must be a single targeted follow-up problem.',
 		'summary must explain why the proposed problem addresses the knowledge gaps.',
 		'Never wrap the JSON in markdown.',
+		'Use LaTeX for all mathematical expressions (e.g., "$x^2$" or "$\\frac{1}{2}$").',
 		'',
 		`Tutor prompt:\n${prompt}`,
 		'',
@@ -45,13 +46,13 @@ function fallbackAnalysis({
 	const normalizedTranscript = transcript.toLowerCase();
 	const gapCandidates = [
 		normalizedTranscript.includes('negative')
-			? 'The student may be missing how negative signs distribute across parentheses.'
+			? 'The student may be missing how negative signs distribute across parentheses, e.g., $-1(x + 1) = -x - 1$.'
 			: null,
 		normalizedTranscript.includes('fraction')
-			? 'The student needs more support simplifying fractions before moving to the next step.'
+			? 'The student needs more support simplifying fractions like $\\frac{4}{8}$ before moving to the next step.'
 			: null,
 		normalizedTranscript.includes('slope')
-			? 'The student appears uncertain about how to compute slope from two points.'
+			? 'The student appears uncertain about how to compute slope $m = \\frac{y_2 - y_1}{x_2 - x_1}$ from two points.'
 			: null
 	].filter((value): value is string => Boolean(value));
 
@@ -61,12 +62,13 @@ function fallbackAnalysis({
 		knowledgeGaps: gapCandidates.length
 			? gapCandidates
 			: [
-					'The student needs a clearer strategy for checking each algebra step against the original problem.',
+					'The student needs a clearer strategy for checking each algebra step, such as $x^2 + 2x + 1 = (x+1)^2$, against the original problem.',
 					'The student benefits from one targeted practice problem that reinforces the verbal coaching from the session.'
 				],
-		proposedProblem: `Create one follow-up problem based on this tutor direction: ${prompt}`,
+		proposedProblem: `Solve for $x$ in the equation: $2x^2 - 4x + 2 = 0$.`,
 		summary:
-			'Fallback analysis is being shown because no Gemini API key was provided. Add a Gemini API key in the dashboard to enable live analysis in the preview.'
+			`Fallback analysis for: "${prompt}". ` +
+			'Fallback analysis is being shown because no Gemini API key was provided. Add a Gemini API key in the dashboard to enable live analysis in the preview. Note: Math expressions like $x^2$ are now rendered using KaTeX.'
 	};
 }
 

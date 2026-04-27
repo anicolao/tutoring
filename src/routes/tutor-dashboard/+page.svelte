@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { resolve } from '$app/paths';
 	import { analyzeTutorSession, DEFAULT_PROMPT } from '$lib/tutor-dashboard';
+	import MathText from '$lib/components/MathText.svelte';
 
 	import type { TutorDashboardAnalysis } from '$lib/tutor-dashboard';
 
@@ -224,7 +225,7 @@
 								<li
 									class="rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-sm text-slate-100"
 								>
-									{gap}
+									<MathText text={gap} />
 								</li>
 							{/each}
 						</ul>
@@ -232,12 +233,16 @@
 
 					<div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
 						<p class="text-sm font-semibold text-slate-300">Proposed interactive problem</p>
-						<p class="mt-3 text-sm leading-7 text-slate-100">{analysis.proposedProblem}</p>
+						<p class="mt-3 text-sm leading-7 text-slate-100">
+							<MathText text={analysis.proposedProblem} />
+						</p>
 					</div>
 
 					<div class="rounded-2xl border border-white/10 bg-slate-950/70 p-5">
 						<p class="text-sm font-semibold text-slate-300">Why this assignment fits</p>
-						<p class="mt-3 text-sm leading-7 text-slate-100">{analysis.summary}</p>
+						<p class="mt-3 text-sm leading-7 text-slate-100">
+							<MathText text={analysis.summary} />
+						</p>
 					</div>
 
 					<form method="GET" action={resolve('/student-workspace')}>
