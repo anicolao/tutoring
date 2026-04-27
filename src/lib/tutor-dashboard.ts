@@ -42,9 +42,8 @@ function buildAnalysisPrompt({
 }
 
 function fallbackAnalysis({
-	transcript,
-	prompt
-}: Pick<TutorDashboardRequest, 'transcript' | 'prompt'>): TutorDashboardAnalysis {
+	transcript
+}: Pick<TutorDashboardRequest, 'transcript'>): TutorDashboardAnalysis {
 	const normalizedTranscript = transcript.toLowerCase();
 	const gapCandidates = [
 		normalizedTranscript.includes('negative')

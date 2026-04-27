@@ -45,7 +45,7 @@ test('Math formatting verification', async ({ page }, testInfo) => {
 	await page.getByLabel('Transcript').fill(transcriptWithMath);
 	await page.getByLabel('Tutor prompt').fill('Test math formatting');
 	await page.getByRole('button', { name: 'Generate Gemini analysis' }).click();
-	await expect(page.getByText('Demo fallback')).toBeVisible({ timeout: 15000 });
+	await expect(page.getByText('Demo fallback', { exact: true })).toBeVisible({ timeout: 15000 });
 
 	await tester.step('math-in-dashboard', {
 		description: 'Math rendering in tutor dashboard',
