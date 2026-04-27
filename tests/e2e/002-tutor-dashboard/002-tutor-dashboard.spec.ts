@@ -60,7 +60,8 @@ test('Tutor dashboard analysis flow', async ({ page }, testInfo) => {
 			},
 			{
 				spec: 'Fallback badge is visible for test mode',
-				check: async () => await expect(page.getByText('Demo fallback', { exact: true })).toBeVisible()
+				check: async () =>
+					await expect(page.getByText('Demo fallback', { exact: true })).toBeVisible()
 			},
 			{
 				spec: 'Analysis contains the negative sign insight',

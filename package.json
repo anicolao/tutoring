@@ -13,7 +13,8 @@
 		"test:e2e": "playwright test",
 		"test": "npm run test:e2e",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"commit": "git add . && git commit -m"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.3",

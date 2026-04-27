@@ -31,23 +31,23 @@ When deploying to GitHub Pages or another static hosting service, the API key mu
 1.  Go to your repository on GitHub.
 2.  Navigate to **Settings > Secrets and variables > Actions**.
 3.  Add a new **Repository secret**:
-    *   **Name**: `PUBLIC_GEMINI_API_KEY`
-    *   **Secret**: (Paste your API key)
+    - **Name**: `PUBLIC_GEMINI_API_KEY`
+    - **Secret**: (Paste your API key)
 4.  Update your workflow (e.g., `.github/workflows/deploy.yml`) to include the environment variable in the build step:
 
 ```yaml
-      - name: Build
-        run: npm run build
-        env:
-          PUBLIC_GEMINI_API_KEY: ${{ secrets.PUBLIC_GEMINI_API_KEY }}
-          # ... other env vars
+- name: Build
+  run: npm run build
+  env:
+    PUBLIC_GEMINI_API_KEY: ${{ secrets.PUBLIC_GEMINI_API_KEY }}
+    # ... other env vars
 ```
 
 ## 4. Security Considerations
 
 ### Why the `PUBLIC_` prefix?
 
-In SvelteKit, environment variables prefixed with `PUBLIC_` are accessible to the client-side code (the browser). 
+In SvelteKit, environment variables prefixed with `PUBLIC_` are accessible to the client-side code (the browser).
 
 This application is a **Static Site**, meaning it runs entirely in the user's browser without a backend server. To perform Gemini analysis, the browser must call the Google Gemini API directly. Therefore, the API key must be available to the browser.
 
@@ -63,8 +63,8 @@ Since the key is technically visible to anyone inspecting the network traffic of
 4.  Under **Set an application restriction**, select **Websites**.
 5.  Under **Website restrictions**, click **Add**.
 6.  Enter your website's URL pattern. For GitHub Pages, it usually looks like:
-    *   `https://yourusername.github.io/your-repo-name/*`
-    *   If you have a custom domain, use that instead.
+    - `https://yourusername.github.io/your-repo-name/*`
+    - If you have a custom domain, use that instead.
 7.  Under **API restrictions**, select **Restrict key**.
 8.  From the dropdown, select **Generative Language API** (this is the API for Gemini).
 9.  Click **Save**.
