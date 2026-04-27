@@ -1,3 +1,5 @@
+import * as env from '$env/static/public';
+
 interface TutorDashboardRequest {
 	imageBase64: string;
 	imageMimeType: string;
@@ -67,8 +69,7 @@ function fallbackAnalysis({
 				],
 		proposedProblem: `Solve for $x$ in the equation: $2x^2 - 4x + 2 = 0$.`,
 		summary:
-			`Fallback analysis for: "${prompt}". ` +
-			'Fallback analysis is being shown because no Gemini API key was provided. Add a Gemini API key in the dashboard to enable live analysis in the preview. Note: Math expressions like $x^2$ are now rendered using KaTeX.'
+			'Demo fallback is being shown. To enable live analysis, configure the PUBLIC_GEMINI_API_KEY environment variable. Note: Math expressions like $x^2$ are rendered using KaTeX.'
 	};
 }
 
@@ -119,7 +120,10 @@ export async function analyzeTutorSession(
 	request: TutorDashboardRequest,
 	apiKey: string | undefined
 ): Promise<TutorDashboardAnalysis> {
-	if (!apiKey) {
+	// @ts-expect-error - PUBLIC_GEMINI_API_KEY may not be defined at build time
+	const effectiveApiKey = apiKey || env.PUBLIC_GEMINI_API_KEY;
+
+	if (!effectiveApiKey) {
 		return fallbackAnalysis(request);
 	}
 
@@ -127,7 +131,7 @@ export async function analyzeTutorSession(
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'x-goog-api-key': apiKey
+			'x-goog-api-key': effectiveApiKey
 		},
 		body: JSON.stringify({
 			generationConfig: {
